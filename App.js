@@ -54,6 +54,13 @@ class HomeScreen extends React.Component {
             },
           ]}
           numColumns={2}
+          ListHeaderComponent={(
+            <View style={styles.listHeader} />
+          )}
+          /* TODO: Fix flatlist cut-off */
+          ListFooterComponent={(
+            <View style={{ height: 72 }} />
+          )}
           renderItem={({item}) => (
             <View key={item.key} style={styles.item}>
               <View 
@@ -92,7 +99,7 @@ class InsightsScreen extends React.Component {
     return (
       <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
         <StatusBar barStyle="light-content" />
-        <Icon name="bar-chart-2" size={64} color="#29293b" />
+        <Icon name="bar-chart-2" size={64} color="#3f3d64" />
       </View>
     );
   }
@@ -103,13 +110,13 @@ class SettingsScreen extends React.Component {
     return (
       <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
         <StatusBar barStyle="light-content" />
-        <Icon name="user" size={64} color="#29293b" />
+        <Icon name="user" size={64} color="#3f3d64" />
       </View>
     );
   }
 }
 
-const RootStack = createBottomTabNavigator({
+const BottomTabBar = createBottomTabNavigator({
   Home: HomeScreen,
   Insights: InsightsScreen,
   Settings: SettingsScreen,
@@ -131,11 +138,12 @@ const RootStack = createBottomTabNavigator({
   }),
   tabBarOptions: {
     activeTintColor: '#f853bc',
-    inactiveTintColor: 'gray',
+    inactiveTintColor: '#727198',
     showLabel: false,
     style: {
       backgroundColor: '#3b3a56',
       borderTopColor: 'transparent',
+      height: 56,
     },
   },
 });
@@ -143,7 +151,7 @@ const RootStack = createBottomTabNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <RootStack />
+      <BottomTabBar />
     );
   }
 }
@@ -156,9 +164,10 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
-    paddingLeft: 12,
-    paddingRight: 12,
-    paddingVertical: 144,
+    paddingHorizontal: 12,
+  },
+  listHeader: {
+    minHeight: 144,
   },
   item: {
     backgroundColor: 'rgba(64, 62, 102, .895)',
